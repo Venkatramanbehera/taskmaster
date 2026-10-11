@@ -4,7 +4,43 @@ version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi[standard]>=0.142.2",
+    "ipykernel>=7.4.0",
 ]
 
 [tool.fastapi]
 entrypoint = "app.main:app"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "ruff>=0.17.0",
+]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+# Select rule sets:
+# E/W: pycodestyle errors and warnings
+# F: Pyflakes (syntax/import/name errors)
+# I: isort (import sorting)
+# B: flake8-bugbear (common bug patterns)
+# UP: pyupgrade (modern Python syntax)
+select = ["E", "F", "I", "B", "UP"]
+
+# Ignore rules that conflict with your preferences:
+ignore = [
+    "E501",  # line-too-long (handled by formatter)
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
